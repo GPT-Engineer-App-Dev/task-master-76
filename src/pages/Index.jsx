@@ -12,12 +12,17 @@ import {
   ListItem,
   Text,
   VStack,
+  useColorMode,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { FaTrash } from "react-icons/fa";
 
 const Index = () => {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState("");
+
+  const bg = useColorModeValue("gray.100", "gray.900");
+  const color = useColorModeValue("black", "white");
 
   const handleAddTask = () => {
     if (newTask.trim() !== "") {
@@ -39,7 +44,7 @@ const Index = () => {
   };
 
   return (
-    <Container centerContent maxW="container.md" py={10}>
+    <Container centerContent maxW="container.md" py={10} bg={bg} color={color}>
       <VStack spacing={6} width="100%">
         <Heading as="h1" size="2xl">
           Todo App
@@ -50,6 +55,8 @@ const Index = () => {
             value={newTask}
             onChange={(e) => setNewTask(e.target.value)}
             mr={2}
+            bg={useColorModeValue("white", "gray.700")}
+            color={useColorModeValue("black", "white")}
           />
           <Button onClick={handleAddTask} colorScheme="teal">
             Add Task
@@ -63,7 +70,7 @@ const Index = () => {
                 display="flex"
                 alignItems="center"
                 justifyContent="space-between"
-                bg={task.completed ? "green.100" : "gray.100"}
+                bg={task.completed ? "green.100" : bg}
                 p={2}
                 borderRadius="md"
               >
@@ -71,6 +78,7 @@ const Index = () => {
                   isChecked={task.completed}
                   onChange={() => handleToggleTask(index)}
                   mr={2}
+                  colorScheme="teal"
                 >
                   <Text as={task.completed ? "s" : undefined}>{task.text}</Text>
                 </Checkbox>
